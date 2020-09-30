@@ -7,6 +7,7 @@ fun main(args: Array<String>) {
   }
   when (args[0]) {
     "add" -> add(args)
+    "list" -> Store.list()
     "del" -> del(args)
     "help" -> printHelp()
 
@@ -35,10 +36,6 @@ fun imp(args: Array<String>) {
 }
 
 fun lib(args: Array<String>) {
-  TODO("Not yet implemented")
-}
-
-fun list() {
   TODO("Not yet implemented")
 }
 
