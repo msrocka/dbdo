@@ -6,6 +6,12 @@ import java.util.zip.ZipFile
 
 object DbDir {
 
+  fun list() {
+    dbDir().listFiles()?.forEach {
+      println("  ${it.name}")
+    }
+  }
+
   fun put(name: String) {
     val file = Store.file(name)
     if (!file.exists()) {
@@ -13,7 +19,7 @@ object DbDir {
       return
     }
     val dbName = Store.name(file)
-    val dir = File(dbdir(), dbName)
+    val dir = File(dbDir(), dbName)
     if (dir.exists()) {
       println("ERROR: $dbName already exists in openLCA")
     }
@@ -35,6 +41,16 @@ object DbDir {
     addToRegistry(dbName)
   }
 
+  fun pop(name: String) {
+    val dir = File(dbDir(), name)
+    if (!dir.exists()) {
+      println("ERROR: $name does not exist in openLCA")
+      return
+    }
+    dir.deleteRecursively()
+    removeFromRegistry(name)
+  }
+
   private fun workspace(): File {
     val home = File(System.getProperty("user.home"))
     val dir = File(home, "openLCA-data-1.4")
@@ -44,7 +60,7 @@ object DbDir {
     return dir
   }
 
-  private fun dbdir() = File(workspace(), "databases")
+  private fun dbDir() = File(workspace(), "databases")
 
   private fun addToRegistry(name: String) {
     val file = File(workspace(), "databases.json");
@@ -57,6 +73,23 @@ object DbDir {
     dbObj.addProperty("name", name)
     dbs.add(dbObj)
     root.add("localDatabases", dbs)
+    Json.write(root, file)
+  }
+
+  private fun removeFromRegistry(name: String) {
+    val file = File(workspace(), "databases.json");
+    val root = Json.readObject(file).orElse(JsonObject())
+    val dbs = Json.getArray(root, "localDatabases") ?: return
+    val nextDbs = JsonArray()
+    for ( elem in dbs) {
+      if (!elem.isJsonObject)
+        continue
+      val db = elem.asJsonObject
+      if (name.equals(Json.getString(db, "name"), ignoreCase = true))
+        continue
+      nextDbs.add(db)
+    }
+    root.add("localDatabases", nextDbs)
     Json.write(root, file)
   }
 

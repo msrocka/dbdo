@@ -7,11 +7,11 @@ fun main(args: Array<String>) {
   }
   when (args[0]) {
     "add" -> add(args)
-    "list" -> Store.list()
+    "list" -> list(args)
     "put" -> put(args)
+    "pop" -> pop(args)
     "help" -> printHelp()
-
-    "lib" -> lib(args)
+    else -> println("Unknown command `${args[0]}`.")
   }
 }
 
@@ -35,24 +35,20 @@ fun put(args: Array<String>) {
   DbDir.put(args[1])
 }
 
-fun imp(args: Array<String>) {
-  TODO("Not yet implemented")
+fun pop(args: Array<String>) {
+  if (args.size < 2) {
+    println("No database given.")
+    return
+  }
+  DbDir.pop(args[1])
 }
 
-fun lib(args: Array<String>) {
-  TODO("Not yet implemented")
-}
-
-fun mount(args: Array<String>) {
-  TODO("Not yet implemented")
-}
-
-fun newDB(args: Array<String>) {
-  TODO("Not yet implemented")
-}
-
-fun rem(args: Array<String>) {
-
+fun list(args: Array<String>) {
+  if (args.size > 1 && args[1] == "olca") {
+    DbDir.list()
+  } else {
+    Store.list()
+  }
 }
 
 fun printHelp() {

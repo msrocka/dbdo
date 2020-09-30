@@ -1,6 +1,6 @@
 # dbdo
 Setting up test databases for openLCA is boring. `dbdo` is a small command line tool
-that helps. It manages databases in as plain `*.zolca` files in the `~/.dbdo` folder.
+that helps. It manages databases as plain `*.zolca` files in a `~/.dbdo` folder.
 
 ## Usage
 
@@ -15,15 +15,30 @@ Usage:
 
 The commands are:
 
-    add [zolca] [name?]
-    add a zolca file, optionally under a new name, to the dbdo store
+    help
+      prints this help
 
-    del   [db]           - delete the database from the store
-    help                 - show this help
-    imp   [zolca]        - import a zolca file into the local store
-    lib   [db]           - creates a library from a database
-    list                 - list the databases
-    mount [db] [lib]     - mount a library to the given database 
-    new   [name] [dbs..] - create a new database, optionally from others
-    rem   [db]           - remove a database from openLCA
+    add [zolca] [name?]
+      add a zolca file, optionally under a new name, to the dbdo store
+
+    list [olca?]
+      list the available databases in the dbdo store, or in openLCA if
+      the `olca` argument is given
+
+    put [db]
+      adds the given database to openLCA
+
+    pop [db]
+      removes the given database from openLCA
+```
+
+## Installation
+
+1. Build the fat jar via `mvn package`
+2. Put a shell/batch script into your path, like this
+
+```batch
+rem dbdo.bat
+@echo off
+java -Xmx5G -jar C:\tools\bin\dbdo-1.0-jar-with-dependencies.jar %*
 ```
