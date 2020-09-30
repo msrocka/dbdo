@@ -14,30 +14,51 @@ object Store {
     return dir
   }
 
-  fun add(zolca: File, name: String? = null): Boolean {
+  /**
+   * Adds the given thing as a new database to this store.
+   */
+  fun add(thing: String, name: String? = null) {
+
+    // the thing is an openLCA database
+    if (DbDir.exists(thing)) {
+      val dbName = name ?: thing
+      val file = file(dbName)
+      DbDir.export(thing, file)
+      return
+    }
+
+    // the thing is a zolca file
+    val file = File(thing)
+    if (file.exists() && file.name.endsWith(".zolca")) {
+      addZolca(file, name)
+      return
+    }
+
+    println("ERROR: do not know how to add $thing to the store.")
+  }
+
+  private fun addZolca(zolca: File, name: String? = null) {
     if (!zolca.exists()) {
       println("ERROR: $zolca does no exist")
-      return false
+      return
     }
     if (!zolca.name.endsWith(".zolca")) {
       println("ERROR: $zolca is not a zolca file")
-      return false
+      return
     }
     var target = zolca.name
     if (name != null) {
-      target = name;
+      target = name
     }
     val targetFile = file(target)
     if (targetFile.exists()) {
       println("ERROR: a database ${name(targetFile)} already exists")
-      return false
+      return
     }
     try {
       zolca.copyTo(targetFile)
-      return true
     } catch (e: Exception) {
       println("ERROR: failed to copy $zolca to $target")
-      return false
     }
   }
 

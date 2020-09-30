@@ -1,4 +1,3 @@
-import java.io.File
 
 fun main(args: Array<String>) {
   if (args.isEmpty()) {
@@ -21,9 +20,9 @@ fun add(args: Array<String>) {
     return
   }
   if (args.size > 2) {
-    Store.add(File(args[1]), args[2])
+    Store.add(args[1], args[2])
   } else {
-    Store.add(File(args[1]))
+    Store.add(args[1])
   }
 }
 

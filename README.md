@@ -18,8 +18,11 @@ The commands are:
     help
       prints this help
 
-    add [zolca] [name?]
-      add a zolca file, optionally under a new name, to the dbdo store
+    add [thing] [name?]
+      add the given thing as a database to the dbdo store (optionally
+      with the specified name), where thing can be:
+      - a openLCA database
+      - a zolca file
 
     list ["olca"?]
       list the available databases in the dbdo store, or in openLCA if
