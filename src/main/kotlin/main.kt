@@ -8,7 +8,7 @@ fun main(args: Array<String>) {
   when (args[0]) {
     "add" -> add(args)
     "list" -> Store.list()
-    "del" -> del(args)
+    "put" -> put(args)
     "help" -> printHelp()
 
     "lib" -> lib(args)
@@ -27,8 +27,12 @@ fun add(args: Array<String>) {
   }
 }
 
-fun del(args: Array<String>) {
-  TODO("Not yet implemented")
+fun put(args: Array<String>) {
+  if (args.size < 2) {
+    println("No database given.")
+    return
+  }
+  DbDir.put(args[1])
 }
 
 fun imp(args: Array<String>) {

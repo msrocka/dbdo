@@ -47,9 +47,9 @@ object Store {
     }
   }
 
-  private fun name(zolca: File) = zolca.name.removeSuffix(".zolca")
+  fun name(zolca: File) = zolca.name.removeSuffix(".zolca")
 
-  private fun file(name: String): File {
+  fun file(name: String): File {
     if (!name.endsWith(".zolca")) {
       return File(dir(), name + ".zolca")
     } else {
