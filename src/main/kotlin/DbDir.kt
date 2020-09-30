@@ -41,6 +41,9 @@ object DbDir {
     addToRegistry(dbName)
   }
 
+  /**
+   * Removes the database with the given name from openLCA.
+   */
   fun pop(name: String) {
     val dir = File(dbDir(), name)
     if (!dir.exists()) {
@@ -49,6 +52,15 @@ object DbDir {
     }
     dir.deleteRecursively()
     removeFromRegistry(name)
+  }
+
+  /**
+   * Removes all databases from openLCA.
+   */
+  fun popAll() {
+    dbDir().listFiles()?.forEach {
+      pop(it.name)
+    }
   }
 
   private fun workspace(): File {

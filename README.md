@@ -21,15 +21,16 @@ The commands are:
     add [zolca] [name?]
       add a zolca file, optionally under a new name, to the dbdo store
 
-    list [olca?]
+    list ["olca"?]
       list the available databases in the dbdo store, or in openLCA if
       the `olca` argument is given
 
     put [db]
       adds the given database to openLCA
 
-    pop [db]
-      removes the given database from openLCA
+    pop [db | "-all"]
+      removes the given database from openLCA, if the all flag is 
+      given it will remove all databases from openLCA
 ```
 
 ## Installation

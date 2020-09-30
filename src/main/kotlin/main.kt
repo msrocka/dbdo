@@ -40,7 +40,12 @@ fun pop(args: Array<String>) {
     println("No database given.")
     return
   }
-  DbDir.pop(args[1])
+  val arg = args[1]
+  if (arg == "-all") {
+    DbDir.popAll()
+  } else {
+    DbDir.pop(args[1])
+  }
 }
 
 fun list(args: Array<String>) {
