@@ -1,3 +1,5 @@
+import java.io.File
+
 fun main(args: Array<String>) {
   if (args.isEmpty()) {
     printHelp()
@@ -13,7 +15,15 @@ fun main(args: Array<String>) {
 }
 
 fun add(args: Array<String>) {
-  TODO("Not yet implemented")
+  if (args.size < 2) {
+    println("No zolca file given.")
+    return
+  }
+  if (args.size > 2) {
+    Store.add(File(args[1]), args[2])
+  } else {
+    Store.add(File(args[1]))
+  }
 }
 
 fun del(args: Array<String>) {

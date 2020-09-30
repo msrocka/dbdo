@@ -15,7 +15,9 @@ Usage:
 
 The commands are:
 
-    add   [db]           - add a database to openLCA
+    add [zolca] [name?]
+    add a zolca file, optionally under a new name, to the dbdo store
+
     del   [db]           - delete the database from the store
     help                 - show this help
     imp   [zolca]        - import a zolca file into the local store
