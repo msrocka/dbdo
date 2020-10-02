@@ -1,5 +1,8 @@
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import org.openlca.core.database.IDatabase
+import org.openlca.core.database.derby.DerbyDatabase
+import org.openlca.core.database.upgrades.Upgrades
 import org.openlca.jsonld.Json
 import java.io.File
 import java.nio.file.Files
@@ -23,6 +26,25 @@ object DbDir {
         return true
     }
     return false
+  }
+
+  /**
+   * Update the database with the given name in the
+   * database folder.
+   */
+  fun update(name: String) {
+    if (!exists(name)) {
+      println("ERROR: an openLCA database `$name` does not exist")
+      return
+    }
+    open(name).use { db ->
+      Upgrades.on(db)
+    }
+  }
+
+  private fun open(name: String): IDatabase {
+    val dir = File(dbDir(), name)
+    return DerbyDatabase(dir)
   }
 
   /**

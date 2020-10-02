@@ -1,4 +1,3 @@
-
 fun main(args: Array<String>) {
   if (args.isEmpty()) {
     printHelp()
@@ -9,6 +8,7 @@ fun main(args: Array<String>) {
     "list" -> list(args)
     "put" -> put(args)
     "pop" -> pop(args)
+    "update" -> update(args)
     "help" -> printHelp()
     else -> println("Unknown command `${args[0]}`.")
   }
@@ -55,6 +55,14 @@ fun list(args: Array<String>) {
   }
 }
 
+fun update(args: Array<String>) {
+  if (args.size < 2) {
+    println("No database given.")
+    return
+  }
+  DbDir.update(args[1])
+}
+
 fun printHelp() {
   println(
     """
@@ -66,15 +74,28 @@ Usage:
 
 The commands are:
 
-    add   [db]           - add a database to openLCA
-    del   [db]           - delete the database from the store
-    help                 - show this help
-    imp   [zolca]        - import a zolca file into the local store
-    lib   [db]           - creates a library from a database
-    list                 - list the databases
-    mount [db] [lib]     - mount a library to the given database 
-    new   [name] [dbs..] - create a new database, optionally from others
-    rem   [db]           - remove a database from openLCA
+    help
+      prints this help
+
+    add [thing] [name?]
+      add the given thing as a database to the dbdo store (optionally
+      with the specified name), where thing can be:
+      - a openLCA database
+      - a zolca file
+
+    list ["olca"?]
+      list the available databases in the dbdo store, or in openLCA if
+      the `olca` argument is given
+
+    put [db]
+      adds the given database to openLCA
+
+    pop [db | "-all"]
+      removes the given database from openLCA, if the all flag is 
+      given it will remove all databases from openLCA
+
+    update [db]
+      runs the current (v2.0) update sequence on the given database.
 """
   )
 }

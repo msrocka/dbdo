@@ -34,6 +34,9 @@ The commands are:
     pop [db | "-all"]
       removes the given database from openLCA, if the all flag is 
       given it will remove all databases from openLCA
+
+    update [db]
+      runs the current (v2.0) update sequence on the given database.
 ```
 
 ## Installation
