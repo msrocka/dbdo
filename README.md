@@ -24,6 +24,10 @@ The commands are:
       - a openLCA database
       - a zolca file
 
+    connect [db]
+      connects to the given openLCA database. it starts ij which is
+      an interactive REPL for working with Derby databases.
+
     list ["olca"?]
       list the available databases in the dbdo store, or in openLCA if
       the `olca` argument is given

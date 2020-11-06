@@ -1,5 +1,6 @@
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
+import org.apache.derby.tools.ij
 import org.openlca.core.database.IDatabase
 import org.openlca.core.database.derby.DerbyDatabase
 import org.openlca.core.database.upgrades.Upgrades
@@ -10,7 +11,6 @@ import java.nio.file.Path
 import java.util.zip.ZipEntry
 import java.util.zip.ZipFile
 import java.util.zip.ZipOutputStream
-
 
 object DbDir {
 
@@ -26,6 +26,19 @@ object DbDir {
         return true
     }
     return false
+  }
+
+  fun connect(name: String) {
+    val list = dbDir().list()?.filter {
+      name.equals(it, ignoreCase = true)
+    }
+    if (list == null || list.isEmpty()) {
+      println("ERROR: an openLCA database `$name` does not exist")
+      return
+    }
+    System.setProperty("derby.system.home", dbDir().absolutePath)
+    System.setProperty("ij.database", "jdbc:derby:${list[0]}")
+    ij.main(arrayOf())
   }
 
   /**

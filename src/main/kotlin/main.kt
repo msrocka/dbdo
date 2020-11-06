@@ -5,6 +5,7 @@ fun main(args: Array<String>) {
   }
   when (args[0]) {
     "add" -> add(args)
+    "connect" -> connect(args)
     "list" -> list(args)
     "put" -> put(args)
     "pop" -> pop(args)
@@ -24,6 +25,14 @@ fun add(args: Array<String>) {
   } else {
     Store.add(args[1])
   }
+}
+
+fun connect(args: Array<String>) {
+  if (args.size < 2) {
+    println("No openLCA database given.")
+    return
+  }
+  DbDir.connect(args[1])
 }
 
 fun put(args: Array<String>) {
@@ -82,6 +91,10 @@ The commands are:
       with the specified name), where thing can be:
       - a openLCA database
       - a zolca file
+
+    connect [db]
+      connects to the given openLCA database. it starts ij which is
+      an interactive REPL for working with Derby databases.
 
     list ["olca"?]
       list the available databases in the dbdo store, or in openLCA if
