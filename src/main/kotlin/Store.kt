@@ -62,6 +62,18 @@ object Store {
     }
   }
 
+  fun del(name: String) {
+    val file = file(name)
+    if (!file.exists()) {
+      println("ERROR: a database $name does" +
+        " not exist in the dbdo store")
+      return
+    }
+    if (!file.delete()) {
+      println("ERROR: failed to delete $file")
+    }
+  }
+
   fun list() {
     dir().listFiles()?.forEach {
       println("  ${name(it)}")

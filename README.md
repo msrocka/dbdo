@@ -24,6 +24,9 @@ The commands are:
       - a openLCA database
       - a zolca file
 
+    del [db]
+      deletes the database with the given name from the dbdo store
+
     connect [db]
       connects to the given openLCA database. it starts ij which is
       an interactive REPL for working with Derby databases.

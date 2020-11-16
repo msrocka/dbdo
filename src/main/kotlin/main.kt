@@ -6,6 +6,7 @@ fun main(args: Array<String>) {
   when (args[0]) {
     "add" -> add(args)
     "connect" -> connect(args)
+    "del" -> del(args)
     "list" -> list(args)
     "put" -> put(args)
     "pop" -> pop(args)
@@ -33,6 +34,14 @@ fun connect(args: Array<String>) {
     return
   }
   DbDir.connect(args[1])
+}
+
+fun del(args: Array<String>) {
+  if (args.size < 2) {
+    println("No database name given.")
+    return
+  }
+  Store.del(args[1])
 }
 
 fun put(args: Array<String>) {
@@ -91,6 +100,9 @@ The commands are:
       with the specified name), where thing can be:
       - a openLCA database
       - a zolca file
+
+    del [db]
+      deletes the database with the given name from the dbdo store
 
     connect [db]
       connects to the given openLCA database. it starts ij which is
