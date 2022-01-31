@@ -2,7 +2,7 @@ import com.google.gson.JsonArray
 import com.google.gson.JsonObject
 import org.apache.derby.tools.ij
 import org.openlca.core.database.IDatabase
-import org.openlca.core.database.derby.DerbyDatabase
+import org.openlca.core.database.Derby
 import org.openlca.core.database.upgrades.Upgrades
 import org.openlca.jsonld.Json
 import java.io.File
@@ -57,7 +57,7 @@ object DbDir {
 
   private fun open(name: String): IDatabase {
     val dir = File(dbDir(), name)
-    return DerbyDatabase(dir)
+    return Derby(dir)
   }
 
   /**
